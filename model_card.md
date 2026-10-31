@@ -69,6 +69,16 @@ Prompts:
 
 No need for numeric metrics unless you created some.
 
+**Weight shift experiment:** I halved the genre weight (from +2.0 to +1.0) and doubled the energy weight (energy points went from 1 minus the gap to 2 times that). For the "Sad but Energetic" profile (pop, sad, energy 0.9), the original top 3 were Gym Hero, Sunrise City, and Empty Porch Light, the only sad song. After the change, Empty Porch Light dropped out of the top 5, because energy mattered even more, and the mood match was worth relatively less next to it. For the Default profile, Rooftop Lights (happy) moved above Gym Hero (intense), which fits the user better. My conclusion is that the change made the rankings different, not more accurate, so I reverted the weights to the original values.
+
+**Profile Comparisons:**
+
+1. **High-Energy Pop vs Chill Lofi:** The top songs moved from high-energy pop songs (Sunrise City, Gym Hero) to low-energy lofi songs (Library Rain, Midnight Coding). This makes sense because both the genre and the energy target changed.
+2. **High-Energy Pop vs Deep Intense Rock:** Gym Hero appears in both lists. It matches the pop genre for the first profile and the "intense" mood for the second, and its energy is high for both.
+3. **Chill Lofi vs Deep Intense Rock:** These profiles want opposite energy levels. Lofi has several good matches, but rock has only one genre match (Storm Runner) because the dataset has only one rock song.
+4. **High-Energy Pop vs Sad but Energetic:** The top 2 are the same two songs (Gym Hero and Sunrise City) because the genre match (+2.0) is worth more than the mood. Only the third result changes: Rooftop Lights (happy) is replaced by Empty Porch Light (sad).
+5. **Unknown Genre vs Middle of Road:** Each profile has one genre match: Moonlit Sonata Sketch for classical and Coffee Shop Stories for jazz. After that, Middle of Road relies on energy closeness only, while Unknown Genre's next three songs also get a mood match because they are "chill".
+
 ---
 
 ## 8. Future Work  

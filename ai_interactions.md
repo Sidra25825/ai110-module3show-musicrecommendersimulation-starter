@@ -294,3 +294,112 @@ The AI wrote 4 sentences in the "Limitations and Bias" section about the single 
 **What was changed or double-checked:**
 
 - The AI compared my notes to the program output and found one mistake: Gym Hero did get a mood match (+1.0, score 1.97) for "Deep Intense Rock". Only the last three results matched on energy alone. The AI corrected that sentence to match the output.
+
+### 11. Adding edge-case profiles to main.py
+
+**Prompt used:**
+
+> Open src/main.py. Add these 3 profiles to the existing profiles
+> dictionary, without removing the current ones. Don't change
+> recommender.py.
+>
+> "Sad but Energetic": {"genre": "pop",       "mood": "sad",   "energy": 0.9},
+> "Unknown Genre":     {"genre": "classical", "mood": "chill", "energy": 0.2},
+> "Middle of Road":    {"genre": "jazz",      "mood": "relaxed", "energy": 0.5},
+
+**What the AI did:**
+
+The AI added the 3 profiles after the existing 4 and ran `python -m src.main` to show the results. It summarized the top result for each profile: Gym Hero for "Sad but Energetic", Moonlit Sonata Sketch for "Unknown Genre", and Coffee Shop Stories for "Middle of Road".
+
+**What was changed or double-checked:**
+
+- The AI pointed out that "Unknown Genre" does not really test an unknown genre, because `songs.csv` already has a classical song (Moonlit Sonata Sketch). It suggested a genre not in the file, like "blues" or "k-pop".
+- The AI noted that for "Sad but Energetic", happy and intense pop songs ranked above the only sad song, which shows the genre bias.
+
+### 12. Weight shift experiment in score_song
+
+**Prompt used:**
+
+> Open src/recommender.py. In score_song only, change the weights:
+> genre match from +2.0 to +1.0, and energy points from (1 - gap)
+> to 2 * (1 - gap). Keep the mood weight at +1.0. Update the
+> reasons text so the points shown match the new values. Verify
+> that the maximum score is now 4.0. Don't change any other file.
+
+**What the AI did:**
+
+The AI changed the genre weight to +1.0 and the energy points to 2 * (1 - gap), updated the genre reason text, and updated the `score_song` docstring to list the new weights. For the Default profile, Rooftop Lights moved above Gym Hero.
+
+**What was changed or double-checked:**
+
+- The AI tested a perfect match (score 4.0) and a song that matches nothing with the biggest energy gap (score 0.0), and ran the tests (2 passed).
+- The AI pointed out that the README and model card still described the old weights.
+- The weights were later reverted to the original values (+2.0 genre, 1 - gap energy). The AI did not make this change.
+
+### 13. Writing the weight shift experiment in model_card.md
+
+**Prompt used:**
+
+> Open model_card.md. In the Evaluation section, add a short
+> paragraph (4-5 sentences, simple words) about one experiment.
+> Don't change any other section or any code.
+>
+> What I did:
+> - Weight shift experiment: I halved the genre weight (+2.0 to +1.0)
+>   and doubled the energy weight (1 - gap became 2 * (1 - gap)).
+> - For "Sad but Energetic" (pop, sad, 0.9), the original top 3 were
+>   Gym Hero, Sunrise City, and Empty Porch Light (the only sad song).
+>   After the change, Empty Porch Light dropped out of the top 5,
+>   because energy mattered even more and mood was ignored more.
+> - For the Default profile, Rooftop Lights (happy) moved above
+>   Gym Hero (intense), which fits the user better.
+> - My conclusion: the change made rankings different, not more
+>   accurate. I reverted the weights to the original values.
+>
+> Only write what is listed here. Don't invent anything.
+
+**What the AI did:**
+
+The AI added a 5-sentence paragraph about the experiment under the template prompts in the Evaluation section. It kept the template prompts because the request said to add, not replace.
+
+**What was changed or double-checked:**
+
+- The AI checked my notes. For the Default profile, it had seen Rooftop Lights move above Gym Hero when it ran the program with the new weights. For "Sad but Energetic", it worked out the new scores by hand (not by running the program) and confirmed that Empty Porch Light (1.70) drops below Storm Runner, Neon Skyline Drop, and Iron Furnace, out of the top 5.
+- The AI changed "mood was ignored more" to "the mood match counted for less", because the mood weight stayed at +1.0 and only became smaller compared to the doubled energy points.
+
+### 14. Writing Profile Comparisons in model_card.md
+
+**Prompt used:**
+
+> Open model_card.md. In the Evaluation section, add a short
+> "Profile Comparisons" part. For each pair below, write 1-2 simple
+> sentences saying what changed and why it makes sense. Don't change
+> any other section or any code. Only use the facts listed here.
+>
+> 1. High-Energy Pop vs Chill Lofi: top songs moved from pop songs
+>    with high energy (Sunrise City, Gym Hero) to lofi songs with low
+>    energy (Library Rain, Midnight Coding), because both genre and
+>    energy target changed.
+> 2. High-Energy Pop vs Deep Intense Rock: Gym Hero appears in both.
+>    It matches pop for the first profile and the "intense" mood for
+>    the second, and its energy is high for both.
+> 3. Chill Lofi vs Deep Intense Rock: opposite energy levels. Lofi
+>    has several good matches, but rock has only one genre match
+>    (Storm Runner) because the dataset has one rock song.
+> 4. High-Energy Pop vs Sad but Energetic: the top 2 are the same
+>    (Gym Hero, Sunrise City) because the genre match (+2.0) beats
+>    mood. Only the third result changes: Rooftop Lights (happy)
+>    becomes Empty Porch Light (sad).
+> 5. Unknown Genre vs Middle of Road: classical has a genre match
+>    (Moonlit Sonata Sketch), and jazz has only one (Coffee Shop
+>    Stories). After that, both profiles rely on energy closeness only.
+
+**What the AI did:**
+
+The AI added a "Profile Comparisons" part after the weight shift paragraph in the Evaluation section, with one numbered item of 1-2 sentences for each of the 5 pairs.
+
+**What was changed or double-checked:**
+
+- The AI checked each fact against the program output from the original weights. Pairs 1-3 matched.
+- Pair 5 had a mistake: for "Unknown Genre", results 2-4 also got a mood match (+1.0) because they are "chill", so it does not rely on energy closeness only. The AI corrected the sentence. "Middle of Road" does rely on energy only after Coffee Shop Stories.
+- Pair 4: the top 2 are the same songs but in a different order (Sunrise City is first for High-Energy Pop, Gym Hero is first for Sad but Energetic). The AI wrote "the same two songs" so the sentence stays true, and offered to add the order swap.
