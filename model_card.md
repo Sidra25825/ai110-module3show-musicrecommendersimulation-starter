@@ -2,20 +2,13 @@
 
 ## 1. Model Name  
 
-Give your model a short, descriptive name.  
-Example: **VibeFinder 1.0**  
+VibeFinder 1.0
 
 ---
 
 ## 2. Intended Use  
 
-Describe what your recommender is designed to do and who it is for. 
-
-Prompts:  
-
-- What kind of recommendations does it generate  
-- What assumptions does it make about the user  
-- Is this for real users or classroom exploration  
+This recommender suggests songs from a small catalog based on a user's favorite genre, favorite mood, and target energy. It assumes the user can describe their taste with these three things. It is made for classroom learning, not for real users. It should not be used to make real product decisions or to represent a person's full musical taste.
 
 ---
 
@@ -27,26 +20,13 @@ This recommender is content-based, which means it compares each song's attribute
 
 ## 4. Data  
 
-Describe the dataset the model uses.  
-
-Prompts:  
-
-- How many songs are in the catalog  
-- What genres or moods are represented  
-- Did you add or remove data  
-- Are there parts of musical taste missing in the dataset  
+The catalog is data/songs.csv with 18 songs: 10 from the starter file and the rest added by me. Each song has a genre, mood, energy, tempo, valence, danceability, and acousticness. The recommender only uses genre, mood, and energy. The catalog is small, and some genres (like rock) have only one song. Many parts of musical taste are missing, such as language, lyrics, and era.
 
 ---
 
 ## 5. Strengths  
 
-Where does your system seem to work well  
-
-Prompts:  
-
-- User types for which it gives reasonable results  
-- Any patterns you think your scoring captures correctly  
-- Cases where the recommendations matched your intuition  
+The system works best when the catalog has several songs that fit the user's genre and mood. For "Chill Lofi", the top results were three lofi songs, and Library Rain scored the maximum 4.00. The reasons shown with each score make it easy to see why a song was recommended.
 
 ---
 
@@ -58,16 +38,14 @@ The catalog has only one rock song, so the "Deep Intense Rock" profile gets one 
 
 ## 7. Evaluation  
 
-How you checked whether the recommender behaved as expected. 
-
-Prompts:  
-
-- Which user profiles you tested  
-- What you looked for in the recommendations  
-- What surprised you  
-- Any simple tests or comparisons you ran  
-
-No need for numeric metrics unless you created some.
+I tested 7 user profiles: Default (pop, happy), High-Energy Pop,
+Chill Lofi, Deep Intense Rock, Sad but Energetic, Unknown Genre
+(classical), and Middle of Road (jazz). I looked at whether the
+top 5 songs matched each profile's genre, mood, and energy, and
+whether the reasons made sense. What surprised me most was "Sad
+but Energetic": the top two songs were pop songs that are not sad,
+and the only sad song ranked third, because a genre match is worth
+more than a mood match.
 
 **Weight shift experiment:** I halved the genre weight (from +2.0 to +1.0) and doubled the energy weight (energy points went from 1 minus the gap to 2 times that). For the "Sad but Energetic" profile (pop, sad, energy 0.9), the original top 3 were Gym Hero, Sunrise City, and Empty Porch Light, the only sad song. After the change, Empty Porch Light dropped out of the top 5, because energy mattered even more, and the mood match was worth relatively less next to it. For the Default profile, Rooftop Lights (happy) moved above Gym Hero (intense), which fits the user better. My conclusion is that the change made the rankings different, not more accurate, so I reverted the weights to the original values.
 
@@ -83,23 +61,31 @@ No need for numeric metrics unless you created some.
 
 ## 8. Future Work  
 
-Ideas for how you would improve the model next.  
-
-Prompts:  
-
-- Additional features or preferences  
-- Better ways to explain recommendations  
-- Improving diversity among the top results  
-- Handling more complex user tastes  
+1. Add more songs, so every genre has several options.
+2. Use more features, like valence and acousticness, and let users pick several favorite genres or moods.
+3. Add a diversity rule, so the top results don't all come from the same genre, and lower the genre weight so mood can matter more.
 
 ---
 
 ## 9. Personal Reflection  
 
-A few sentences about your experience.  
+The most interesting thing I discovered was how apps like YouTube
+and Spotify decide which songs I might like. I learned that there
+are two main techniques: collaborative filtering, which looks at
+what similar users do, and content-based filtering, which looks at
+the song's own attributes. YouTube mostly relies on watch behavior,
+while Spotify mixes both, and my project uses only the content-based
+type. This was my biggest learning moment.
 
-Prompts:  
+AI helped me mostly with writing and documentation. When I finished
+a piece of work, I asked it to add the explanation to the README or
+the model card. After that, I went back to the file and checked what
+it wrote to see if it was correct, for example when we summarized my
+scoring algorithm.
 
-- What you learned about recommender systems  
-- Something unexpected or interesting you discovered  
-- How this changed the way you think about music recommendation apps  
+What surprised me was that my recommender only adds up points, yet
+for the "Chill Lofi" profile it returned calm lofi songs that felt
+like real recommendations.
+
+Next, I would add more songs so every genre has several options,
+and use more features like valence and acousticness.

@@ -403,3 +403,97 @@ The AI added a "Profile Comparisons" part after the weight shift paragraph in th
 - The AI checked each fact against the program output from the original weights. Pairs 1-3 matched.
 - Pair 5 had a mistake: for "Unknown Genre", results 2-4 also got a mood match (+1.0) because they are "chill", so it does not rely on energy closeness only. The AI corrected the sentence. "Middle of Road" does rely on energy only after Coffee Shop Stories.
 - Pair 4: the top 2 are the same songs but in a different order (Sunrise City is first for High-Energy Pop, Gym Hero is first for Sad but Energetic). The AI wrote "the same two songs" so the sentence stays true, and offered to add the order swap.
+
+### 15. Filling sections 1, 2, 4, 5 and 8 of model_card.md
+
+**Prompt used:**
+
+> Open model_card.md. Fill in these sections only: 1 (Model Name),
+> 2 (Intended Use), 4 (Data), 5 (Strengths), and 8 (Future Work).
+> Replace the template prompts in those sections with the text below.
+> Don't change any other section or any code. Leave section 9
+> (Personal Reflection) untouched.
+>
+> Before writing section 4, count the songs in data/songs.csv and
+> use the real number.
+>
+> 1. Model Name:
+> VibeFinder 1.0
+>
+> 2. Intended Use:
+> This recommender suggests songs from a small catalog based on a
+> user's favorite genre, favorite mood, and target energy. It assumes
+> the user can describe their taste with these three things. It is
+> made for classroom learning, not for real users. It should not be
+> used to make real product decisions or to represent a person's
+> full musical taste.
+>
+> 4. Data:
+> The catalog is data/songs.csv with [REAL COUNT] songs: 10 from the
+> starter file and the rest added by me. Each song has a genre, mood,
+> energy, tempo, valence, danceability, and acousticness. The
+> recommender only uses genre, mood, and energy. The catalog is small,
+> and some genres (like rock) have only one song. Many parts of
+> musical taste are missing, such as language, lyrics, and era.
+>
+> 5. Strengths:
+> The system works best when the catalog has several songs that fit
+> the user's genre and mood. For "Chill Lofi", the top results were
+> three lofi songs, and Library Rain scored the maximum 4.00. The
+> reasons shown with each score make it easy to see why a song was
+> recommended.
+>
+> 8. Future Work:
+> 1. Add more songs, so every genre has several options.
+> 2. Use more features, like valence and acousticness, and let users
+>    pick several favorite genres or moods.
+> 3. Add a diversity rule, so the top results don't all come from the
+>    same genre, and lower the genre weight so mood can matter more.
+
+**What the AI did:**
+
+The AI replaced the template prompts in sections 1, 2, 4, 5 and 8 with my text. It counted the songs in `data/songs.csv` (18) and used that number in section 4. Sections 3, 6, 7 and 9 were not changed.
+
+**What was changed or double-checked:**
+
+- The AI counted the songs with a short script: 18 (10 starter songs + 8 added in this session).
+- The AI checked section 5 against the program output: the "Chill Lofi" top 3 were all lofi songs, and Library Rain scored 4.00.
+- The AI pointed out that the 8 extra songs were written by the AI at my request (entry 3), and suggested I could write "added with AI help" in section 4. I did not ask for this change.
+
+### 16. Writing Personal Reflection in model_card.md
+
+**Prompt used:**
+
+> Open model_card.md. In section 9 (Personal Reflection), replace
+> the template prompts with the text below, exactly as written.
+> Don't rewrite, improve, or add anything. Don't change any other
+> section or any code.
+>
+> The most interesting thing I discovered was how apps like YouTube
+> and Spotify decide which songs I might like. I learned that there
+> are two main techniques: collaborative filtering, which looks at
+> what similar users do, and content-based filtering, which looks at
+> the song's own attributes. YouTube mostly relies on watch behavior,
+> while Spotify mixes both, and my project uses only the content-based
+> type. This was my biggest learning moment.
+>
+> AI helped me mostly with writing and documentation. When I finished
+> a piece of work, I asked it to add the explanation to the README or
+> the model card. After that, I went back to the file and checked what
+> it wrote to see if it was correct, for example when we summarized my
+> scoring algorithm.
+>
+> What surprised me was that my recommender only adds up points, yet
+> for the "Chill Lofi" profile it returned calm lofi songs that felt
+> like real recommendations.
+>
+> Next, I would add more songs so every genre has several options,
+> and use more features like valence and acousticness.
+
+**What the AI did:**
+
+The AI replaced the template prompts in section 9 with my text exactly as written, keeping my line breaks. It did not rewrite or add anything.
+
+**What was changed or double-checked:**
+
+- Nothing was changed. The text is my own writing.
