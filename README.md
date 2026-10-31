@@ -106,6 +106,95 @@ Because: energy closeness (+0.95)
 
 ---
 
+## Evaluation: Profile Outputs
+
+This is the full output of `python -m src.main` for all four profiles.
+
+```text
+Loading songs from data/songs.csv...
+
+=== Default ===
+
+Top recommendations:
+
+Sunrise City - Score: 3.98
+Because: genre match (+2.0), mood match (+1.0), energy closeness (+0.98)
+
+Gym Hero - Score: 2.87
+Because: genre match (+2.0), energy closeness (+0.87)
+
+Rooftop Lights - Score: 1.96
+Because: mood match (+1.0), energy closeness (+0.96)
+
+Crown the Block - Score: 0.98
+Because: energy closeness (+0.98)
+
+Night Drive Loop - Score: 0.95
+Because: energy closeness (+0.95)
+
+
+=== High-Energy Pop ===
+
+Top recommendations:
+
+Sunrise City - Score: 3.92
+Because: genre match (+2.0), mood match (+1.0), energy closeness (+0.92)
+
+Gym Hero - Score: 2.97
+Because: genre match (+2.0), energy closeness (+0.97)
+
+Rooftop Lights - Score: 1.86
+Because: mood match (+1.0), energy closeness (+0.86)
+
+Storm Runner - Score: 0.99
+Because: energy closeness (+0.99)
+
+Neon Skyline Drop - Score: 0.95
+Because: energy closeness (+0.95)
+
+
+=== Chill Lofi ===
+
+Top recommendations:
+
+Library Rain - Score: 4.00
+Because: genre match (+2.0), mood match (+1.0), energy closeness (+1.00)
+
+Midnight Coding - Score: 3.93
+Because: genre match (+2.0), mood match (+1.0), energy closeness (+0.93)
+
+Focus Flow - Score: 2.95
+Because: genre match (+2.0), energy closeness (+0.95)
+
+Spacewalk Thoughts - Score: 1.93
+Because: mood match (+1.0), energy closeness (+0.93)
+
+Coffee Shop Stories - Score: 0.98
+Because: energy closeness (+0.98)
+
+
+=== Deep Intense Rock ===
+
+Top recommendations:
+
+Storm Runner - Score: 3.99
+Because: genre match (+2.0), mood match (+1.0), energy closeness (+0.99)
+
+Gym Hero - Score: 1.97
+Because: mood match (+1.0), energy closeness (+0.97)
+
+Neon Skyline Drop - Score: 0.95
+Because: energy closeness (+0.95)
+
+Iron Furnace - Score: 0.93
+Because: energy closeness (+0.93)
+
+Sunrise City - Score: 0.92
+Because: energy closeness (+0.92)
+```
+
+---
+
 ## Experiments You Tried
 
 Use this section to document the experiments you ran. For example:
