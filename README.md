@@ -27,6 +27,19 @@ Real-world music apps like Spotify use two main ideas to recommend songs. **Coll
 - `UserProfile`
   - `favorite_genre`, `favorite_mood`, `target_energy`
 
+**Algorithm Recipe**
+
+Each song gets a score by adding up these points:
+
+- **+2.0 points** if the song's genre matches the user's favorite genre
+- **+1.0 point** if the song's mood matches the user's favorite mood
+- **Energy points** = `1 - abs(user target energy - song energy)` (the closer the energy, the more points, up to 1.0)
+- **Maximum score: 4.0**
+
+**Expected Bias**
+
+This system might over-prioritize genre, because a genre match is worth the most points. A song that matches the user's mood and energy perfectly but has a different genre can score at most 2.0, while a song that only matches the genre already gets 2.0 before its energy points are added. So the system may ignore good songs from other genres.
+
 ---
 
 ## Getting Started
