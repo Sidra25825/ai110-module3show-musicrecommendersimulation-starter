@@ -17,17 +17,15 @@ Replace this paragraph with your own summary of what your version does.
 
 ## How The System Works
 
-Explain your design in plain language.
+Real-world music apps like Spotify use two main ideas to recommend songs. **Collaborative filtering** looks at what other users do: if people who like the same songs as you also love a new song, you will probably like it too. **Content-based filtering** looks at the songs themselves, using attributes like tempo, mood, and energy to find songs similar to the ones you already enjoy. Big apps mix both and learn from your likes, skips, saved songs, and playlists. My version is **content-based**: it gives each song a score based on how well its genre matches, how well its mood matches, and how close its energy is to what the user wants.
 
-Some prompts to answer:
+**Features used**
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
-
-You can include a simple diagram or bullet list if helpful.
+- `Song`
+  - `genre`, `mood`, `energy`
+  - Also available: `tempo_bpm`, `valence`, `danceability`, `acousticness`
+- `UserProfile`
+  - `favorite_genre`, `favorite_mood`, `target_energy`
 
 ---
 
