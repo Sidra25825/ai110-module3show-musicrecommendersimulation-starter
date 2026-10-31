@@ -11,7 +11,7 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-Replace this paragraph with your own summary of what your version does.
+My version is a content-based music recommender. It scores each song by genre match (+2.0), mood match (+1.0), and energy closeness (up to 1.0), then returns the top songs with the reasons for each score.
 
 ---
 
@@ -52,6 +52,7 @@ This system might over-prioritize genre, because a genre match is worth the most
    python -m venv .venv
    source .venv/bin/activate      # Mac or Linux
    .venv\Scripts\activate         # Windows
+   ```
 
 2. Install dependencies
 
@@ -108,7 +109,7 @@ Because: energy closeness (+0.95)
 
 ## Evaluation: Profile Outputs
 
-This is the full output of `python -m src.main` for all four profiles.
+This is the full output of `python -m src.main` for all seven profiles.
 
 ```text
 Loading songs from data/songs.csv...
@@ -191,44 +192,85 @@ Because: energy closeness (+0.93)
 
 Sunrise City - Score: 0.92
 Because: energy closeness (+0.92)
+
+
+=== Sad but Energetic ===
+
+Top recommendations:
+
+Gym Hero - Score: 2.97
+Because: genre match (+2.0), energy closeness (+0.97)
+
+Sunrise City - Score: 2.92
+Because: genre match (+2.0), energy closeness (+0.92)
+
+Empty Porch Light - Score: 1.35
+Because: mood match (+1.0), energy closeness (+0.35)
+
+Storm Runner - Score: 0.99
+Because: energy closeness (+0.99)
+
+Neon Skyline Drop - Score: 0.95
+Because: energy closeness (+0.95)
+
+
+=== Unknown Genre ===
+
+Top recommendations:
+
+Moonlit Sonata Sketch - Score: 2.98
+Because: genre match (+2.0), energy closeness (+0.98)
+
+Spacewalk Thoughts - Score: 1.92
+Because: mood match (+1.0), energy closeness (+0.92)
+
+Library Rain - Score: 1.85
+Because: mood match (+1.0), energy closeness (+0.85)
+
+Midnight Coding - Score: 1.78
+Because: mood match (+1.0), energy closeness (+0.78)
+
+Empty Porch Light - Score: 0.95
+Because: energy closeness (+0.95)
+
+
+=== Middle of Road ===
+
+Top recommendations:
+
+Coffee Shop Stories - Score: 3.87
+Because: genre match (+2.0), mood match (+1.0), energy closeness (+0.87)
+
+Velvet Hours - Score: 0.98
+Because: energy closeness (+0.98)
+
+Dirt Road Summers - Score: 0.95
+Because: energy closeness (+0.95)
+
+Midnight Coding - Score: 0.92
+Because: energy closeness (+0.92)
+
+Focus Flow - Score: 0.90
+Because: energy closeness (+0.90)
 ```
 
 ---
 
 ## Experiments You Tried
 
-Use this section to document the experiments you ran. For example:
-
-- What happened when you changed the weight on genre from 2.0 to 0.5
-- What happened when you added tempo or valence to the score
-- How did your system behave for different types of users
+I halved the genre weight (+2.0 to +1.0) and doubled the energy weight. For the "Sad but Energetic" profile, the only sad song (Empty Porch Light) dropped out of the top 5. The rankings were different, not more accurate, so I reverted the weights.
 
 ---
 
 ## Limitations and Risks
 
-Summarize some limitations of your recommender.
-
-Examples:
-
-- It only works on a tiny catalog
-- It does not understand lyrics or language
-- It might over favor one genre or mood
-
-You will go deeper on this in your model card.
+The catalog is small and has only one rock song. The system favors genre over mood. It does not understand lyrics or language.
 
 ---
 
 ## Reflection
 
-Read and complete `model_card.md`:
-
-[**Model Card**](model_card.md)
-
-Write 1 to 2 paragraphs here about what you learned:
-
-- about how recommenders turn data into predictions
-- about where bias or unfairness could show up in systems like this
+My reflection is in the Personal Reflection section of the [Model Card](model_card.md).
 
 
 
