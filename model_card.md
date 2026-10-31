@@ -52,14 +52,7 @@ Prompts:
 
 ## 6. Limitations and Bias 
 
-Where the system struggles or behaves unfairly. 
-
-Prompts:  
-
-- Features it does not consider  
-- Genres or moods that are underrepresented  
-- Cases where the system overfits to one preference  
-- Ways the scoring might unintentionally favor some users  
+The catalog has only one rock song, so the "Deep Intense Rock" profile gets one great match and then mostly weak ones. Storm Runner scored 3.99, but the next result, Gym Hero, only matched the mood, and the last three only matched on energy and scored under 1.0. Because a genre match is worth the most points (+2.0), the system favors songs from the user's genre and has little to offer when that genre has few songs. Gym Hero (a pop song with an intense mood) showed up for both "High-Energy Pop" and "Deep Intense Rock" because its energy is high.
 
 ---
 

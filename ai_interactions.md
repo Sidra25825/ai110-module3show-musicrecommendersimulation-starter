@@ -132,3 +132,165 @@ The AI added songs 11-18 with the genres hip-hop, classical, r&b, country, metal
 - The AI checked the existing genres and moods first so the new ones would not repeat them. Three moods (confident, peaceful, euphoric) were the AI's own choices because my example list only had five.
 - The AI loaded the file with `load_songs` and confirmed it read all 18 songs.
 - No follow-up changes were requested.
+
+### 4. Adding the Algorithm Recipe and Expected Bias to README.md
+
+**Prompt used:**
+
+> Open README.md. In the "How The System Works" section, add
+> to what is already there (don't delete anything):
+>
+> 1. An "Algorithm Recipe" with these exact rules:
+>    - +2.0 points for a genre match
+>    - +1.0 point for a mood match
+>    - Energy points = 1 - abs(user target energy - song energy)
+>    - Maximum score: 4.0
+>
+> 2. A short "Expected Bias" note (2-3 sentences) saying this system
+>    might over-prioritize genre, because a genre match is worth the
+>    most points, so it may ignore songs that match the user's mood
+>    and energy but have a different genre.
+>
+> Keep it short and simple. Don't change any other section.
+
+**What the AI did:**
+
+The AI added an "Algorithm Recipe" list with the four rules and a 3-sentence "Expected Bias" note under the features list. The bias note includes an example: a song in a different genre with a mood match and perfect energy can only reach 2.0, while a genre-only match starts at 2.0.
+
+**What was changed or double-checked:**
+
+- The AI checked that the points add up to the 4.0 maximum (2.0 + 1.0 + 1.0).
+- No follow-up changes were requested.
+
+### 5. Adding sample output to README.md
+
+**Prompt used:**
+
+> Open README.md. Add a new section called "Sample Recommendation
+> Output" at the end. Run `python -m src.main` and paste the exact
+> terminal output into a fenced code block (text, not a screenshot).
+> Add one sentence above it saying it's the output for the default
+> profile: genre pop, mood happy, energy 0.8.
+> Don't change any other section.
+
+**What the AI did:**
+
+The AI ran `python -m src.main` and pasted the output (top 5 songs for the default profile) into a text code block with the sentence above it. It did not add a new section at the end, because the README already had a "Sample Recommendation Output" section from the template. It filled in that section instead.
+
+**What was changed or double-checked:**
+
+- The AI's placement differs from my prompt (the existing section instead of a new one at the end). The AI explained why and offered to move it.
+- The AI pointed out that two lines at the end of `recommend_songs` come after a `return`, so they never run.
+
+### 6. Shortening docstrings in recommender.py
+
+**Prompt used:**
+
+> Open src/recommender.py. Add a 1-line docstring to load_songs,
+> score_song, and recommend_songs. Replace the existing docstrings
+> only in these three functions. Don't change any code or other functions.
+
+**What the AI did:**
+
+The AI replaced the multi-line docstrings of the three functions with one-line docstrings that describe what each function does and returns. No code was changed.
+
+**What was changed or double-checked:**
+
+- The AI ran `python -m src.main` again to confirm the program still works.
+- The old "Required by src/main.py" notes were removed so each docstring fits on one line.
+
+### 7. Filling "How the Model Works" in model_card.md
+
+**Prompt used:**
+
+> Open model_card.md. Find the "Algorithm Summary" section (or the
+> section about how the algorithm works) and fill it in. Don't change
+> any other section.
+>
+> Write 5-6 short sentences in plain language, no code, for a
+> non-programmer. Explain:
+> - The recommender is content-based: it compares each song's
+>   attributes to a user's taste profile.
+> - Each song gets points: +2.0 for a genre match, +1.0 for a mood
+>   match, and up to +1.0 for energy (1 minus the gap between the
+>   user's target energy and the song's energy).
+> - The maximum score is 4.0.
+> - Every song is scored, then the list is sorted from highest to
+>   lowest, and the top k are returned with the reasons for each score.
+
+**What the AI did:**
+
+There was no "Algorithm Summary" section, so the AI filled in "3. How the Model Works" with 6 plain sentences covering the points in my prompt. It described the energy rule in words instead of as a formula and wrote "the top few songs" instead of "top k".
+
+**What was changed or double-checked:**
+
+- The AI pointed out the wording choices above and offered to use the exact formula or the word "k" instead.
+
+### 8. Adding test profiles to main.py
+
+**Prompt used:**
+
+> Open src/main.py. Keep the existing default profile. Add these 3
+> profiles and run recommend_songs for each one in a loop, printing
+> the profile name as a header, then the top 5 results in the same
+> format as now (title, score, reasons). Don't change recommender.py.
+>
+> profiles = {
+>     "High-Energy Pop":   {"genre": "pop",  "mood": "happy",   "energy": 0.9},
+>     "Chill Lofi":        {"genre": "lofi", "mood": "chill",   "energy": 0.35},
+>     "Deep Intense Rock": {"genre": "rock", "mood": "intense", "energy": 0.9},
+> }
+
+**What the AI did:**
+
+The AI put the default profile and the 3 new profiles into one `profiles` dictionary and looped over it, printing each profile name as a header and then the top 5 results in the same format as before.
+
+**What was changed or double-checked:**
+
+- The AI ran `python -m src.main` and confirmed the default results did not change.
+- The AI pointed out that "Deep Intense Rock" has only one rock song to match, so the rest of its top 5 is filled mostly by energy.
+
+### 9. Adding all profile outputs to README.md
+
+**Prompt used:**
+
+> Open README.md. Add a section called "Evaluation: Profile Outputs".
+> Run `python -m src.main` and paste the full terminal output,
+> for all profiles, into one fenced code block (text, not a screenshot).
+> Don't change any other section.
+
+**What the AI did:**
+
+The AI ran `python -m src.main` and added an "Evaluation: Profile Outputs" section with the full output for all 4 profiles in one text code block. It placed the section after "Sample Recommendation Output" and before "Experiments You Tried".
+
+**What was changed or double-checked:**
+
+- The AI saved the output to a file and inserted it with a script, so the pasted text matches the program output exactly (only the trailing blank lines were removed).
+
+### 10. Writing "Limitations and Bias" in model_card.md
+
+**Prompt used:**
+
+> Open model_card.md. In the "Limitations and Bias" section, write
+> 3-5 sentences in simple words about one weakness I found.
+> Don't change any other section.
+>
+> What I found:
+> - songs.csv has only one rock song. For the "Deep Intense Rock"
+>   profile, Storm Runner scored 3.99, but the other four results had
+>   no genre or mood match, only energy closeness (all under 1.0).
+> - Genre is worth the most points (+2.0), so the system favors
+>   songs from the user's genre and has little to offer when the
+>   genre has few songs.
+> - Gym Hero (pop, intense) appeared for both "High-Energy Pop" and
+>   "Deep Intense Rock", because its energy is high.
+>
+> Only write what is listed here. Don't invent anything.
+
+**What the AI did:**
+
+The AI wrote 4 sentences in the "Limitations and Bias" section about the single rock song, the large genre weight, and Gym Hero appearing in two profiles.
+
+**What was changed or double-checked:**
+
+- The AI compared my notes to the program output and found one mistake: Gym Hero did get a mood match (+1.0, score 1.97) for "Deep Intense Rock". Only the last three results matched on energy alone. The AI corrected that sentence to match the output.
