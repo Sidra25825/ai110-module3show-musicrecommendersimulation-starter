@@ -92,6 +92,14 @@ def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tup
     Functional implementation of the recommendation logic.
     Required by src/main.py
     """
-    # TODO: Implement scoring and ranking logic
-    # Expected return format: (song_dict, score, explanation)
-    return []
+    results = []
+    for song in songs:
+        score, reasons = score_song(user_prefs, song)
+        explanation = ", ".join(reasons)
+        results.append((song, score, explanation))
+    ranked = sorted(results, key=lambda item: item[1], reverse=True)
+    return ranked[:k]
+
+    # Sort results by score in descending order and return the top k
+    results.sort(key=lambda x: x[1], reverse=True)
+    return results[:k]
