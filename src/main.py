@@ -21,6 +21,9 @@ def main() -> None:
         "High-Energy Pop":   {"genre": "pop",  "mood": "happy",   "energy": 0.9},
         "Chill Lofi":        {"genre": "lofi", "mood": "chill",   "energy": 0.35},
         "Deep Intense Rock": {"genre": "rock", "mood": "intense", "energy": 0.9},
+        "Sad but Energetic": {"genre": "pop",       "mood": "sad",   "energy": 0.9},
+        "Unknown Genre":     {"genre": "classical", "mood": "chill", "energy": 0.2},
+        "Middle of Road":    {"genre": "jazz",      "mood": "relaxed", "energy": 0.5},
     }
 
     for name, user_prefs in profiles.items():
